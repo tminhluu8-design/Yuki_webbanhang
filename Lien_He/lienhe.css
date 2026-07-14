@@ -1,0 +1,44 @@
+/* Khung chứa các nút liên hệ */
+.floating-contact {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Thay bằng 'right: 20px;' nếu muốn đổi sang góc phải */
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Định dạng chung cho từng nút */
+.contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 22px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.contact-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Màu sắc từng nút */
+.btn-phone { background-color: #4CAF50; } /* Màu xanh lá */
+.btn-zalo { background-color: #0068FF; }  /* Màu xanh Zalo */
+.btn-fb { background-color: #1877F2; }    /* Màu xanh Facebook */
+
+/* Hiệu ứng rung cho nút gọi điện */
+@keyframes quick-wiggle {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
+}
+.btn-phone {
+    animation: quick-wiggle 1s infinite alternate;
+}
