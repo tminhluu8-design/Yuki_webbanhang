@@ -66,9 +66,10 @@
         }
 
         // Lấy tham số ID từ URL (ví dụ: ?id=0)
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = parseInt(urlParams.get('id')) || 0;
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const productId = parseInt(urlParams.get('id')) || 0;
 
+        const productId = 1;
         // Tải dữ liệu từ CSV và hiển thị lên giao diện
         fetch('products.csv')
             .then(response => response.text())
