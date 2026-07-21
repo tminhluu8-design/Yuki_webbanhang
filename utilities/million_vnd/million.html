@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm từ CSV</title>
+    <style>
+        /* Định dạng giao diện hiển thị dạng lưới (Grid) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .product-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .price-new { color: red; font-weight: bold; }
+        .price-old { text-decoration: line-through; color: #888; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- Nơi các sản phẩm từ CSV sẽ tự động nhảy vào đây -->
+    <div id="product-container" class="product-grid">
+        <p>Đang tải sản phẩm...</p>
+    </div>
+
+    <script>
+        // Hàm đọc file CSV và chuyển thành mảng Object
+        function csvToObjects(csvText) {
+            const lines = csvText.split("\n");
+            const headers = lines[0].split(",");
+            const result = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue; // Bỏ qua dòng trống
+                
+                // Xử lý cắt chuỗi chuẩn theo dấu phẩy, loại bỏ dấu ngoặc kép " "
+                const currentLine = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const obj = {};
+                
+                headers.forEach((header, index) => {
+                    obj[header.trim()] = currentLine[index] ? currentLine[index].replace(/"/g, "").trim() : "";
+                });
+                result.push(obj);
+            }
+            return result;
+        }
+
+        // Tự động chạy khi trang tải xong
+        fetch('products.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                const products = csvToObjects(csvText);
+                const container = document.getElementById('product-container');
+                container.innerHTML = ''; // Xóa chữ "Đang tải sản phẩm..."
+
+                // Duyệt qua từng sản phẩm và tạo mã HTML
+                products.forEach(prod => {
+                    // Kiểm tra xem có giá cũ để hiển thị không
+                    const oldPriceHtml = prod.oldPrice ? `<span class="price-old">${prod.oldPrice}</span>` : '';
+                    
+                    const productHtml = `
+                        <div class="product-item">
+                            <a href="${prod.link}">
+                                <img src="${prod.image}" alt="${prod.title}">
+                            </a>
+                            <h3><a href="${prod.link}">${prod.title}</a></h3>
+                            <div class="product-price">
+                                <span class="price-new">${prod.price}</span>
+                                ${oldPriceHtml}
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += productHtml;
+                });
+            })
+            .catch(error => {
+                console.error("Lỗi tải file CSV:", error);
+                document.getElementById('product-container').innerHTML = "<p>Không thể tải danh sách sản phẩm.</p>";
+            });
+    </script>
+</body>
+</html>
