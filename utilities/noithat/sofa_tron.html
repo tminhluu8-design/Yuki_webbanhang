@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title id="page-title">Chi tiết sản phẩm</title>
+    <style>
+        .product-detail-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            display: flex;
+            gap: 40px;
+            font-family: Arial, sans-serif;
+        }
+        .product-image-box { flex: 1; }
+        .product-image-box img { max-width: 100%; height: auto; border-radius: 8px; }
+        .product-info-box { flex: 1; }
+        .price-new { color: red; font-size: 24px; font-weight: bold; }
+        .price-old { text-decoration: line-through; color: #888; margin-left: 15px; }
+        .buy-btn { background: #ff4d4f; color: white; border: none; padding: 12px 30px; font-size: 18px; cursor: pointer; border-radius: 5px; margin-top: 20px; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="product-detail-container">
+        <!-- Khối bên trái: Hình ảnh -->
+        <div class="product-image-box">
+            <a href="index.html" class="back-link">← Quay lại danh sách</a>
+            <img id="p-image" src="" atl="Đang tải ...">
+        </div>
+        
+        <!-- Khối bên phải: Thông tin -->
+        <div class="product-info-box">
+            <h1 id="p-title">Đang tải tên sản phẩm...</h1>
+            <div class="product-price">
+                <span id="p-price" class="price-new"></span>
+                <span id="p-old-price" class="price-old"></span>
+            </div>
+            <p style="margin-top: 20px; color: #555;">
+                Phòng khách nhỏ chật cần bán bộ sofa <br>
+                Bao gồm 1 ghế băng dài kích thước 160x80x20 <br>
+				Bao gồm 4 ghế băng ngắn kích thước 80x80x208 <br> 
+				Một bàn gỗ tròn 2 tầng mặt kính cường lực <br>              
+            </p>
+            <img src="images/sofa_tron/ghe_tron_a.jpg">
+            <img src="images/sofa_tron/ghe_tron_a.jpg">
+            <button class="buy-btn">Thêm vào giỏ hàng </button>
+        </div>
+    </div>
+
+    <script>
+        // Hàm đọc file CSV (tương tự trang index)
+        function csvToObjects(csvText) {
+            const lines = csvText.split("\n");
+            const headers = lines[0].split(",");
+            const result = [];
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                const currentLine = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header.trim()] = currentLine[index] ? currentLine[index].replace(/"/g, "").trim() : "";
+                });
+                result.push(obj);
+            }
+            return result;
+        }
+
+        // Lấy tham số ID từ URL (ví dụ: ?id=0)
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const productId = parseInt(urlParams.get('id')) || 0;
+
+        const productId = 1;
+        // Tải dữ liệu từ CSV và hiển thị lên giao diện
+        fetch('products.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                const products = csvToObjects(csvText);
+                const currentProduct = products[productId];
+
+                if (currentProduct) {
+                    // Đổ dữ liệu vào các thẻ HTML
+                    document.getElementById('page-title').innerText = currentProduct.title;
+                    document.getElementById('p-title').innerText = currentProduct.title;
+                    document.getElementById('p-price').innerText = currentProduct.price;
+                    document.getElementById('p-image').src = currentProduct.image;
+                    document.getElementById('p-image').alt = currentProduct.title;
+                    
+                    if (currentProduct.oldPrice) {
+                        document.getElementById('p-old-price').innerText = currentProduct.oldPrice;
+                    } else {
+                        document.getElementById('p-old-price').style.display = 'none';
+                    }
+                } else {
+                    document.body.innerHTML = "<h2>Không tìm thấy sản phẩm yêu cầu!</h2><a href='index.html'>Quay lại trang chủ</a>";
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi:", error);
+                document.body.innerHTML = "<h2>Lỗi tải dữ liệu sản phẩm!</h2>";
+            });
+    </script>
+</body>
+</html>

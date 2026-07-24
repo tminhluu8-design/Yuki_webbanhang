@@ -29,37 +29,7 @@
 			<!-- Nút Gui email (soan noi dung thong tin va gui email tminhluu6 thong qua https://formspree.io) -->
 			<a href="lienhe.html" target="_blank" class="contact-btn btn-email" title="Gui Email">✉️Email tminhluu6@gmail.com</a>
 		</div>
-        <!-- Danh sách sản phẩm -->
-        <section class="products-lowprice">
-            <h2>Sản phẩm giảm giá</h2>
-            <div class="products-grid">
-                <!-- Sản phẩm 1 -->
-                <div class="product-card">
-                    <img src="images/tui_Mc_Klein_3.jpg" alt="Tui McKlein">
-                    <h3>Giá còn thương lượng</h3>
-                    <p class="price">6.500.000 ₫</p>
-					<button onclick="addToCart(1, 'Tui McKlein', 6500000)">Chi tiết sản phẩm</button>
-                    <h3> Túi hiệu phù hợp chơi golf, du lịch da thật </h3>
-					<img src="images/tui_Mc_Klein_4.jpg" alt="Top Down" >
-                    <img src="images/tui_Mc_Klein_2.jpg" alt="Bottom Up" >
-                </div>
-                <!-- Sản phẩm 2 -->
-                <div class="product-card">
-                    <img src="images/Tui_Pedro.jpg" alt="Tui Pedro">
-                    <h3>Giá còn thương lượng</h3>
-                    <p class="price">1.000.000 ₫</p>
-                    <button onclick="addToCart(2, 'Túi Pedro', 1000000)">Thêm vào giỏ</button>
-                </div>
-                <!-- Sản phẩm 3 -->
-                <div class="product-card">
-                    <img src="images/may_hut_sua_medela.jpg" alt="Máy Hút sữa Medela">
-                    <h3>Giá còn thương lượng</h3>
-                    <p class="price">2.600.000 ₫</p>
-                    <button onclick="addToCart(3, 'May hut sua medela', 2600000)">Thêm vào giỏ</button>
-                </div>
-            </div>
-        </section>
-
+		
         <section class="products-container">
             <h2>Sản phẩm nổi bật</h2>
             <div class="products-grid">
@@ -101,6 +71,44 @@
             </div>
         </section>
         
+		<section id="products-container-csv">
+            <h2>Sản phẩm Nội Thất nhà Thuê</h2>
+            <div id="products-container-flex" class="products-grid">
+                <a href="utilities/noithat/index.html" title="Đặt Hàng">Sản Phẩm Noi That : cập nhật 24 July 2026</a>
+            </div>
+        </section>
+		
+		<!-- Danh sách sản phẩm -->
+        <section class="products-lowprice">
+            <h2>Sản phẩm giảm giá</h2>
+            <div class="products-grid">
+                <!-- Sản phẩm 1 -->
+                <div class="product-card">
+                    <img src="images/tui_Mc_Klein_3.jpg" alt="Tui McKlein">
+                    <h3>Giá còn thương lượng</h3>
+                    <p class="price">6.500.000 ₫</p>
+					<button onclick="addToCart(1, 'Tui McKlein', 6500000)">Chi tiết sản phẩm</button>
+                    <h3> Túi hiệu phù hợp chơi golf, du lịch da thật </h3>
+					<img src="images/tui_Mc_Klein_4.jpg" alt="Top Down" >
+                    <img src="images/tui_Mc_Klein_2.jpg" alt="Bottom Up" >
+                </div>
+                <!-- Sản phẩm 2 -->
+                <div class="product-card">
+                    <img src="images/Tui_Pedro.jpg" alt="Tui Pedro">
+                    <h3>Giá còn thương lượng</h3>
+                    <p class="price">1.000.000 ₫</p>
+                    <button onclick="addToCart(2, 'Túi Pedro', 1000000)">Thêm vào giỏ</button>
+                </div>
+                <!-- Sản phẩm 3 -->
+                <div class="product-card">
+                    <img src="images/may_hut_sua_medela.jpg" alt="Máy Hút sữa Medela">
+                    <h3>Giá còn thương lượng</h3>
+                    <p class="price">2.600.000 ₫</p>
+                    <button onclick="addToCart(3, 'May hut sua medela', 2600000)">Thêm vào giỏ</button>
+                </div>
+            </div>
+        </section>
+		
         <!-- Giao diện giỏ hàng -->
         <section id="cart-modal" class="cart-modal">
             <div class="cart-content">
