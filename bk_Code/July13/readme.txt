@@ -1,1 +1,0 @@
-add read by csv_chitiet_html
